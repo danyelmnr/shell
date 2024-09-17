@@ -27,7 +27,7 @@ mount -t cifs //172.16.10x.x/Infra -o username=user,password=xxxxxxxx /mnt/nas-0
 echo -e "Configura o arquivo de hosts de ${HOSTNAME} [...] \n"
 #configura o arquivo /etc/hosts
 echo "127.0.0.1       $HOSTNAME.ad.local   $HOSTNAME   localhost" > /etc/hosts
-echo "172.16.107.22   bahia.ad.local" >> /etc/hosts
+echo "172.16.10x.x   bahia.ad.local" >> /etc/hosts
 
 echo -e "Faz backup dos arquivos de configuracao originais [...] \n"
 #faz backup dos arquivos de configuracao
@@ -59,11 +59,11 @@ function restart_services() {
 	systemctl restart smbd.service
 }
 
-echo -e "Integrando $HOSTNAME ao Dominio [AD.SERRATALHADA.IFSERTAO-PE.EDU.BR] ... \n"
+echo -e "Integrando $HOSTNAME ao Dominio [AD.LOCAL] ... \n"
 #integrando a maquina ao dominio 
 net ads join -UAdministrator%xxxxxxxxxxxxx
 
-echo -e "Verificando integracao ao Dominio [AD.SERRATALHADA.IFSERTAO-PE.EDU.BR] ... \n"
+echo -e "Verificando integracao ao Dominio [AD.LOCAL] ... \n"
 #verificando se o dominio esta funcionando
 net ads testjoin
 wbinfo -t
