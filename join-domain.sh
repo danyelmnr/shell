@@ -2,7 +2,7 @@
 
 # Autor: Danyel Mendes
 # danyel.mendes@ifsertao-pe.edu.br
-# Descricao: Script que insere um sistema debian no dominio ad.serratalhada.ifsertao-pe.edu.br
+# Descricao: Script que insere um sistema debian no dominio ad.local
 # Script: join-domain.sh
 
 # remove o cliente e o servidor NTP nas máquinas que vão ingressar no domínio.
@@ -22,12 +22,12 @@ mkdir /mnt/nas-01
 
 echo -e "Montando o volume do repostorio de arquivos de configuracao em NAS-01 [...] \n"
 #montando o volume NAS-01 repositorio dos arquivos de configuracao
-mount -t cifs //172.16.107.40/Infra -o username=ansible,password=Tic5taut0 /mnt/nas-01
+mount -t cifs //172.16.10x.x/Infra -o username=user,password=xxxxxxxx /mnt/nas-01
 
 echo -e "Configura o arquivo de hosts de ${HOSTNAME} [...] \n"
 #configura o arquivo /etc/hosts
-echo "127.0.0.1       $HOSTNAME.ad.serratalhada.ifsertao-pe.edu.br   $HOSTNAME   localhost" > /etc/hosts
-echo "172.16.107.22   bahia.ad.serratalhada.ifsertao-pe.edu.br" >> /etc/hosts
+echo "127.0.0.1       $HOSTNAME.ad.local   $HOSTNAME   localhost" > /etc/hosts
+echo "172.16.107.22   bahia.ad.local" >> /etc/hosts
 
 echo -e "Faz backup dos arquivos de configuracao originais [...] \n"
 #faz backup dos arquivos de configuracao
@@ -49,7 +49,7 @@ cp /mnt/nas-01/conf/resolv.conf /etc/resolv.conf
 
 echo -e "Configura o HOSTNAME do servidor $HOSTNAME corretamente no arquivo smb.conf [...] \n"
 #re-configura o HOSTNAME no arquivo do samba com o hostname do sistema atual
-sed -i "s/MARANHAO/${HOSTNAME}/" /etc/samba/smb.conf
+sed -i "s/XXXXXXX/${HOSTNAME}/" /etc/samba/smb.conf
 
 echo -e "Reiniciando servicos chrony, winbind e smbd [...] \n"
 # reinicia chrony, winbind e smbd
@@ -61,7 +61,7 @@ function restart_services() {
 
 echo -e "Integrando $HOSTNAME ao Dominio [AD.SERRATALHADA.IFSERTAO-PE.EDU.BR] ... \n"
 #integrando a maquina ao dominio 
-net ads join -UAdministrator%P0nyc5t
+net ads join -UAdministrator%xxxxxxxxxxxxx
 
 echo -e "Verificando integracao ao Dominio [AD.SERRATALHADA.IFSERTAO-PE.EDU.BR] ... \n"
 #verificando se o dominio esta funcionando
